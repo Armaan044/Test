@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy to Azure App Service - Armaan
+
+on:
+  push:
+    branches:
+      - main  # Change this if using a different branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set up Node.js (If using Node.js)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # Change according to your app's version
+
+    - name: Install Dependencies (If applicable)
+      run: npm install  # Use `pip install -r requirements.txt` for Python apps
+
+    - name: Build Project (Modify for your tech stack)
+      run: npm run build  # Change if using different frameworks like React/Vue
+
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: Armaan
+        package: .
+
+
